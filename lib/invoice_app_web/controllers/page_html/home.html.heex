@@ -1,0 +1,53 @@
+<main class="flex justify-center h-screen grid-cols-2 md:flex-col lg:grid font-league">
+  <div class="hidden overflow-hidden lg:block ">
+    <div class="bg-red-400 lg:block">
+      <img src="../images/cover_image.png" alt="" class="object-cover w-full" />
+    </div>
+  </div>
+  <div class="flex items-center justify-center w-full">
+    <div class="flex flex-col w-9/12 md:w-6/12 lg:w-8/12">
+      <div class="relative flex flex-col items-center -top-20 ">
+        <div class="flex items-center ">
+          <img src="../images/logo.svg" alt="company logo" class="w-16" />
+          <p class="text-[#7C5DFA] px-4 font-semibold text-5xl">Invoice</p>
+        </div>
+
+        <p class="py-4 text-2xl lg:hidden">Sign In to Invoice</p>
+      </div>
+
+      <p class="hidden py-6 text-2xl text-center lg:block">Sign In to Invoice</p>
+      <div class="flex items-center justify-center gap-2 rounded-lg ">
+        <button class="flex items-center justify-center w-full py-2 border rounded-xl">
+          <img src="../images/google.svg" alt="Google logo" class="w-4 mr-2" />
+          <span class="text-sm">Sign in with Google</span>
+        </button>
+      </div>
+      <div class="flex items-center justify-center gap-2 my-8 rounded-lg">
+        <button class="flex items-center justify-center w-full px-2 py-2 border rounded-xl">
+          <img src="../images/email.svg" alt="Email logo" class="w-4 mr-2" />
+          <span class="text-sm"><.link navigate={~p"/users/log_in"}>Contiune with email</.link></span>
+        </button>
+      </div>
+      <div class="text-center  text-[#888EB0]">
+        <p class="lg:hidden">
+          By creating an account, you agree to <span class="block">Invoice company’s</span>.
+        </p>
+        <p class="hidden text-sm lg:block">
+          By creating an account, you agree to Invoice company’s
+        </p>
+        <p class="text-xs">
+          <span class="font-semibold">Terms of Use</span>
+          and <span class="font-bold">Privacy Policy</span>.
+        </p>
+        <p class="hidden py-4 lg:block">
+          Don't have an account?
+          <span class="text-[#7C5DFA]">
+            <.link navigate={~p"/users/register"}>
+              Sign up
+            </.link>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
