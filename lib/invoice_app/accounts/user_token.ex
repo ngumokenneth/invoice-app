@@ -1,4 +1,6 @@
 defmodule InvoiceApp.Accounts.UserToken do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Query
   alias InvoiceApp.Accounts.UserToken

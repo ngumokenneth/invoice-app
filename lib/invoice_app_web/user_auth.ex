@@ -1,4 +1,6 @@
 defmodule InvoiceAppWeb.UserAuth do
+  @moduledoc false
+
   use InvoiceAppWeb, :verified_routes
 
   import Plug.Conn
@@ -157,7 +159,7 @@ defmodule InvoiceAppWeb.UserAuth do
         socket =
           socket
           |> Phoenix.LiveView.put_flash(:error, "You must confirm your account")
-          |> Phoenix.LiveView.redirect(to: ~p"/users/confirm")
+          |> Phoenix.LiveView.redirect(to: ~p"/users/confirm?")
 
         {:halt, socket}
 

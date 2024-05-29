@@ -1,6 +1,8 @@
 defmodule InvoiceApp.Accounts.User do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
+  alias InvoiceApp.Accounts.Address
 
   schema "users" do
     field :email, :string
@@ -46,7 +48,7 @@ defmodule InvoiceApp.Accounts.User do
       :username,
       :avatar
     ])
-    |> cast_embed(:address, with: &InvoiceApp.Accounts.Address.changeset/2)
+    |> cast_embed(:address, with: &Address.changeset/2)
     |> validate_email(opts)
     |> validate_password(opts)
   end

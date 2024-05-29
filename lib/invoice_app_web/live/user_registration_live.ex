@@ -50,6 +50,7 @@ defmodule InvoiceAppWeb.UserRegistrationLive do
               phx-disable-with="Creating account..."
               class="w-full font-bold bg-[#7C5DFA80;] lg:rounded-xl hover:bg-indigo-500"
             >
+            
               Sign Up
             </.button>
           </:actions>

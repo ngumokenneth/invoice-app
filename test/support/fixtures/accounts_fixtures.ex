@@ -1,6 +1,5 @@
 defmodule InvoiceApp.AccountsFixtures do
   alias InvoiceApp.Accounts
- 
 
   @moduledoc """
   This module defines test helpers for creating

@@ -29,7 +29,7 @@ defmodule InvoiceAppWeb.UserConfirmationLiveTest do
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, "/")
+        |> follow_redirect(conn, "/users/invoices")
 
       assert {:ok, conn} = result
 

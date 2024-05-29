@@ -40,7 +40,10 @@ defmodule InvoiceAppWeb.UserLoginLive do
             <.button phx-disable-with="Logging in..." class="w-full bg-[#7C5DFA;] lg:hidden">
               Login <span aria-hidden="true">→</span>
             </.button>
-            <.button phx-disable-with="Logging in..." class="w-full bg-[#7C5DFA;] py-4 rounded-2xl hidden lg:block">
+            <.button
+              phx-disable-with="Logging in..."
+              class="w-full bg-[#7C5DFA;] py-4 rounded-2xl hidden lg:block"
+            >
               Continue <span aria-hidden="true">→</span>
             </.button>
           </:actions>
