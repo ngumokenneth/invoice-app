@@ -84,8 +84,7 @@ defmodule InvoiceAppWeb.UserConfirmationInstructionsLive do
     <.header class="text-left">
       <p class="font-bold">Confirm your Email  Address.</p>
       <:subtitle>
-        We've sent a confirmation email to
-        <span class="font-bold text-black"><%= @email %>.</span>
+        We've sent a confirmation email to <span class="font-bold text-black"><%= @email %>.</span>
         <br /> Please follow the link in the message to confirm your email address. <br />
         If you did not receive the email, please check your spam folder or:
       </:subtitle>
