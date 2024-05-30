@@ -78,6 +78,7 @@ defmodule InvoiceAppWeb.Router do
       on_mount: [{InvoiceAppWeb.UserAuth, :ensure_confirmed_user}] do
       live "/users/avatar", Avatar.AvatarLive
       live "/users/address", Address.AddressLive
+      live "/users/invoices", Invoices.InvoicesLive
     end
   end
 
