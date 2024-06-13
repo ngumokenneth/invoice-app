@@ -9,11 +9,15 @@ defmodule InvoiceAppWeb.UserConfirmationInstructionsLive do
       <div class="max-w-sm mx-auto bg-[#7C5DFA33] p-8 md:max-w-lg rounded-lg">
         <%= case @current_user do %>
           <% nil -> %>
-            <.confirm_email_form form={@form} />
+            <%= if @email do %>
+              <.confirm_instruction form={@form} email={@email} />
+            <% else %>
+              <.confirm_email_form form={@form} email={@email} />
+            <% end %>
           <% _user -> %>
             <%= case @current_user.confirmed_at do %>
               <% nil -> %>
-                <.confirm_instruction form={@form} email={@current_user.email} />
+                <.confirm_email_form form={@form} email={@email} />
               <% _confirmed_at -> %>
                 <.header>
                   You have already confirmed your account
