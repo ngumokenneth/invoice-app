@@ -7,26 +7,31 @@ defmodule InvoiceAppWeb.UserConfirmationInstructionsLive do
     ~H"""
     <div class="flex items-center h-screen">
       <div class="max-w-sm mx-auto bg-[#7C5DFA33] p-8 md:max-w-lg rounded-lg">
-        <%= if @current_user do %>
-          <%= if @current_user.confirmed_at do %>
-            <.header>
-              You have already confirmed your account
-            </.header>
-          <% else %>
-            <.confirm_instruction :if={@email} form={@form} email={@email} />
-            <.confirm_email_form :if={!@email} form={@form} />
-          <% end %>
-        <% else %>
-          <.confirm_instruction :if={@email} form={@form} email={@email} />
-          <.confirm_email_form :if={!@email} form={@form} />
+        <%= case @current_user do %>
+          <% nil -> %>
+            <%= if @email do %>
+              <.confirm_instruction form={@form} email={@email} />
+            <% else %>
+              <.confirm_email_form form={@form} email={@email} />
+            <% end %>
+          <% _user -> %>
+            <%= case @current_user.confirmed_at do %>
+              <% nil -> %>
+                <.confirm_email_form form={@form} email={@email} />
+              <% _confirmed_at -> %>
+                <.header>
+                  You have already confirmed your account
+                </.header>
+            <% end %>
         <% end %>
       </div>
     </div>
     """
   end
 
-  def mount(_params, _session, socket) do
-    IO.inspect(socket)
+  def mount(_params, session, socket) do
+    IO.inspect(socket, label: "socket data")
+    IO.inspect(session, label: "session data")
     {:ok, assign(socket, form: to_form(%{}, as: "user"))}
   end
 
@@ -83,20 +88,11 @@ defmodule InvoiceAppWeb.UserConfirmationInstructionsLive do
     <.header class="text-left">
       <p class="font-bold">Confirm your Email  Address.</p>
       <:subtitle>
-        We've sent a confirmation email to
-        <span class="font-bold text-black"><%= assigns.current_user.email %>.</span>
+        We've sent a confirmation email to <span class="font-bold text-black"><%= @email %>.</span>
         <br /> Please follow the link in the message to confirm your email address. <br />
         If you did not receive the email, please check your spam folder or:
       </:subtitle>
     </.header>
-
-    <.form for={@form} id="resend_confirmation_form" phx-submit="send_instructions">
-      <.input field={@form[:email]} type="email" placeholder="Email" required />
-
-      <.button phx-disable-with="Sending..." class="w-full my-5">
-        Resend confirmation instructions
-      </.button>
-    </.form>
     """
   end
 

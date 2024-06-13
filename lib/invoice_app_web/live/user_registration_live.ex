@@ -32,8 +32,6 @@ defmodule InvoiceAppWeb.UserRegistrationLive do
           id="registration_form"
           phx-submit="save"
           phx-change="validate"
-          phx-trigger-action={@trigger_submit}
-          action={~p"/users/log_in?_action=registered"}
           method="post"
           class="pt-8"
         >
@@ -86,7 +84,12 @@ defmodule InvoiceAppWeb.UserRegistrationLive do
           )
 
         changeset = Accounts.change_user_registration(user)
-        {:noreply, socket |> assign(trigger_submit: true) |> assign_form(changeset)}
+
+        {:noreply,
+         socket
+         |> assign(trigger_submit: true)
+         |> assign_form(changeset)
+         |> redirect(to: ~p"/users/confirm?#{[email: user.email]}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, socket |> assign(check_errors: true) |> assign_form(changeset)}

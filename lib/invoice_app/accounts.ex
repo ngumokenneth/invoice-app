@@ -140,8 +140,6 @@ defmodule InvoiceApp.Accounts do
     end
   end
 
-  
-
   @doc """
   Updates the user email using the given token.
 

@@ -5,20 +5,16 @@ defmodule InvoiceAppWeb.UserConfirmationLive do
 
   def render(%{live_action: :edit} = assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
-      <.header class="text-center">Confirm Account</.header>
-
-      <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">
-        <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
-        <:actions>
-          <.button phx-disable-with="Confirming..." class="w-full">Confirm my account</.button>
-        </:actions>
-      </.simple_form>
-
-      <p class="text-center mt-4">
-        <.link href={~p"/users/register"}>Register</.link>
-        | <.link href={~p"/users/log_in"}>Log in</.link>
-      </p>
+    <div class="flex items-center w-full h-screen">
+      <div class="mx-auto bg-[#7C5DFA33] p-8  rounded-lg max-w-sm md:w-96">
+        <.header class="text-center">Confirm Account</.header>
+        <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">
+          <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
+          <:actions>
+            <.button phx-disable-with="Confirming..." class="w-full">Confirm my account</.button>
+          </:actions>
+        </.simple_form>
+      </div>
     </div>
     """
   end
@@ -36,7 +32,7 @@ defmodule InvoiceAppWeb.UserConfirmationLive do
         {:noreply,
          socket
          |> put_flash(:info, "User confirmed successfully.")
-         |> redirect(to: ~p"/")}
+         |> redirect(to: ~p"/users/invoices")}
 
       :error ->
         # If there is a current user and the account was already confirmed,

@@ -9,7 +9,30 @@ defmodule InvoiceApp.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        ci: :test,
+        "ci.code_quality": :test,
+        "ci.deps": :test,
+        "ci.formatting": :test,
+        "ci.migrations": :test,
+        "ci.security": :test,
+        "ci.test": :test,
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        credo: :test,
+        dialyzer: :test,
+        sobelow: :test
+      ],
+      compilers: [:yecc] ++ Mix.compilers(),
+      compilers: [:leex] ++ Mix.compilers(),
+      test_coverage: [tool: ExCoveralls],
+      dialyzer: [
+        ignore_warnings: ".dialyzer_ignore.exs",
+        plt_add_apps: [:ex_unit, :mix],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ]
     ]
   end
 
@@ -51,7 +74,13 @@ defmodule InvoiceApp.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:github_workflows_generator, "~> 0.1.0"},
+      {:excoveralls, "~> 0.18", only: :test},
+      {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -69,7 +98,36 @@ defmodule InvoiceApp.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind default", "esbuild default"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
+      ci: [
+        "ci.deps_and_security",
+        "ci.formatting",
+        "ci.code_quality",
+        "ci.test"
+        # "ci.migrations"
+      ],
+      "ci.code_quality": [
+        "compile --force --warnings-as-errors",
+        "credo --strict",
+        "dialyzer"
+      ],
+      "ci.deps_and_security": [
+        "deps.unlock --check-unused",
+        "deps.audit",
+        "sobelow --config .sobelow-conf"
+      ],
+      "ci.formatting": ["format --check-formatted", "cmd --cd assets npx prettier -c .."],
+      "ci.migrations": [
+        "ecto.create --quiet",
+        "ecto.migrate --quiet",
+        "ecto.rollback --all --quiet"
+      ],
+      "ci.test": [
+        "ecto.create --quiet",
+        "ecto.migrate --quiet",
+        "test --cover --warnings-as-errors"
+      ],
+      prettier: ["cmd --cd assets npx prettier -w .."]
     ]
   end
 end
